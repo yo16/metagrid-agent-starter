@@ -1,0 +1,11 @@
+{
+  "name": "metagrid-agent-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "metagrid:validate": "node scripts/validate-metagrid.js",
+    "metagrid:build": "node scripts/build-metagrid-index.js",
+    "metagrid:check": "npm run metagrid:validate && npm run metagrid:build"
+  }
+}

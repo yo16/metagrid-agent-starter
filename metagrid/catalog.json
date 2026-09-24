@@ -1,0 +1,157 @@
+{
+  "entity_types": {
+    "system": {
+      "description": "Application or technical system",
+      "index": "metagrid/indexes/by-type/system.json",
+      "count": 0
+    },
+    "dataset": {
+      "description": "Logical or physical dataset",
+      "index": "metagrid/indexes/by-type/dataset.json",
+      "count": 0
+    },
+    "table": {
+      "description": "Database or warehouse table",
+      "index": "metagrid/indexes/by-type/table.json",
+      "count": 0
+    },
+    "column": {
+      "description": "Column or field",
+      "index": "metagrid/indexes/by-type/column.json",
+      "count": 0
+    },
+    "report": {
+      "description": "Report, dashboard, or analytical output",
+      "index": "metagrid/indexes/by-type/report.json",
+      "count": 0
+    },
+    "business_term": {
+      "description": "Business term or concept",
+      "index": "metagrid/indexes/by-type/business_term.json",
+      "count": 0
+    },
+    "process": {
+      "description": "Business or technical process",
+      "index": "metagrid/indexes/by-type/process.json",
+      "count": 0
+    },
+    "organization": {
+      "description": "Organization, team, or department",
+      "index": "metagrid/indexes/by-type/organization.json",
+      "count": 0
+    },
+    "role": {
+      "description": "Business, security, or access role",
+      "index": "metagrid/indexes/by-type/role.json",
+      "count": 0
+    }
+  },
+  "properties": {
+    "description": {
+      "description": "Short description of the entity",
+      "value_type": "string",
+      "index": "metagrid/indexes/by-property/description.json",
+      "count": 0
+    },
+    "business_meaning": {
+      "description": "Business meaning of the entity",
+      "value_type": "string",
+      "index": "metagrid/indexes/by-property/business_meaning.json",
+      "count": 0
+    },
+    "personal_data": {
+      "description": "Whether the entity contains personal data",
+      "value_type": "boolean",
+      "index": "metagrid/indexes/by-property/personal_data.json",
+      "count": 0
+    },
+    "sensitive_data": {
+      "description": "Whether the entity contains sensitive data",
+      "value_type": "boolean",
+      "index": "metagrid/indexes/by-property/sensitive_data.json",
+      "count": 0
+    },
+    "source_system": {
+      "description": "System from which the data originates",
+      "value_type": "entity_id",
+      "index": "metagrid/indexes/by-property/source_system.json",
+      "count": 0
+    },
+    "destination_system": {
+      "description": "System to which the data is delivered",
+      "value_type": "entity_id",
+      "index": "metagrid/indexes/by-property/destination_system.json",
+      "count": 0
+    },
+    "owner": {
+      "description": "Primary owner of the entity",
+      "value_type": "entity_id_or_string",
+      "index": "metagrid/indexes/by-property/owner.json",
+      "count": 0
+    },
+    "business_owner": {
+      "description": "Business owner of the entity",
+      "value_type": "entity_id_or_string",
+      "index": "metagrid/indexes/by-property/business_owner.json",
+      "count": 0
+    },
+    "technical_owner": {
+      "description": "Technical owner of the entity",
+      "value_type": "entity_id_or_string",
+      "index": "metagrid/indexes/by-property/technical_owner.json",
+      "count": 0
+    },
+    "used_by": {
+      "description": "Entity that consumes or uses this entity",
+      "value_type": "entity_id",
+      "index": "metagrid/indexes/by-property/used_by.json",
+      "count": 0
+    },
+    "produced_by": {
+      "description": "Entity that produces this entity",
+      "value_type": "entity_id",
+      "index": "metagrid/indexes/by-property/produced_by.json",
+      "count": 0
+    },
+    "access_role": {
+      "description": "Role that can access the entity",
+      "value_type": "entity_id_or_string",
+      "index": "metagrid/indexes/by-property/access_role.json",
+      "count": 0
+    },
+    "retention_period": {
+      "description": "Required retention period",
+      "value_type": "string",
+      "index": "metagrid/indexes/by-property/retention_period.json",
+      "count": 0
+    },
+    "data_type": {
+      "description": "Physical or logical data type",
+      "value_type": "string",
+      "index": "metagrid/indexes/by-property/data_type.json",
+      "count": 0
+    },
+    "nullable": {
+      "description": "Whether null values are allowed",
+      "value_type": "boolean",
+      "index": "metagrid/indexes/by-property/nullable.json",
+      "count": 0
+    },
+    "lineage_source": {
+      "description": "Upstream entity in data lineage",
+      "value_type": "entity_id",
+      "index": "metagrid/indexes/by-property/lineage_source.json",
+      "count": 0
+    },
+    "lineage_destination": {
+      "description": "Downstream entity in data lineage",
+      "value_type": "entity_id",
+      "index": "metagrid/indexes/by-property/lineage_destination.json",
+      "count": 0
+    }
+  },
+  "aliases": {
+    "index": "metagrid/indexes/aliases.json",
+    "count": 0
+  }
+}

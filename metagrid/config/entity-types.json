@@ -1,0 +1,38 @@
+{
+  "system": {
+    "directory": "systems",
+    "description": "Application or technical system"
+  },
+  "dataset": {
+    "directory": "datasets",
+    "description": "Logical or physical dataset"
+  },
+  "table": {
+    "directory": "tables",
+    "description": "Database or warehouse table"
+  },
+  "column": {
+    "directory": "columns",
+    "description": "Column or field"
+  },
+  "report": {
+    "directory": "reports",
+    "description": "Report, dashboard, or analytical output"
+  },
+  "business_term": {
+    "directory": "business-terms",
+    "description": "Business term or concept"
+  },
+  "process": {
+    "directory": "processes",
+    "description": "Business or technical process"
+  },
+  "organization": {
+    "directory": "organizations",
+    "description": "Organization, team, or department"
+  },
+  "role": {
+    "directory": "roles",
+    "description": "Business, security, or access role"
+  }
+}

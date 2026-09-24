@@ -1,0 +1,70 @@
+{
+  "description": {
+    "description": "Short description of the entity",
+    "value_type": "string"
+  },
+  "business_meaning": {
+    "description": "Business meaning of the entity",
+    "value_type": "string"
+  },
+  "personal_data": {
+    "description": "Whether the entity contains personal data",
+    "value_type": "boolean"
+  },
+  "sensitive_data": {
+    "description": "Whether the entity contains sensitive data",
+    "value_type": "boolean"
+  },
+  "source_system": {
+    "description": "System from which the data originates",
+    "value_type": "entity_id"
+  },
+  "destination_system": {
+    "description": "System to which the data is delivered",
+    "value_type": "entity_id"
+  },
+  "owner": {
+    "description": "Primary owner of the entity",
+    "value_type": "entity_id_or_string"
+  },
+  "business_owner": {
+    "description": "Business owner of the entity",
+    "value_type": "entity_id_or_string"
+  },
+  "technical_owner": {
+    "description": "Technical owner of the entity",
+    "value_type": "entity_id_or_string"
+  },
+  "used_by": {
+    "description": "Entity that consumes or uses this entity",
+    "value_type": "entity_id"
+  },
+  "produced_by": {
+    "description": "Entity that produces this entity",
+    "value_type": "entity_id"
+  },
+  "access_role": {
+    "description": "Role that can access the entity",
+    "value_type": "entity_id_or_string"
+  },
+  "retention_period": {
+    "description": "Required retention period",
+    "value_type": "string"
+  },
+  "data_type": {
+    "description": "Physical or logical data type",
+    "value_type": "string"
+  },
+  "nullable": {
+    "description": "Whether null values are allowed",
+    "value_type": "boolean"
+  },
+  "lineage_source": {
+    "description": "Upstream entity in data lineage",
+    "value_type": "entity_id"
+  },
+  "lineage_destination": {
+    "description": "Downstream entity in data lineage",
+    "value_type": "entity_id"
+  }
+}

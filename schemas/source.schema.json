@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "type", "title"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "url": {
+      "type": ["string", "null"]
+    },
+    "section": {
+      "type": ["string", "null"]
+    },
+    "created_at": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "updated_at": {
+      "type": ["string", "null"],
+      "format": "date"
+    }
+  }
+}
