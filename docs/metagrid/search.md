@@ -1,51 +1,49 @@
-# Searching MetaGrid
+# MetaGrid の検索
 
-The goal is to answer questions while loading as little context as
-possible.
+目標は、読み込むコンテキストをできるだけ少なくしながら質問に答えることです。
 
-## Search order
+## 検索の順序
 
-Always prefer this order:
+常に次の順序を優先します。
 
 ```text
-Question
+質問
   -> catalog.json
-  -> relevant indexes
-  -> matching entity.json and facts.json
-  -> README.md when context is needed
-  -> original source when evidence is needed
-  -> external search only when MetaGrid is insufficient
+  -> 関連するインデックス
+  -> 該当する entity.json と facts.json
+  -> 文脈が必要な場合は README.md
+  -> 証拠が必要な場合は元のソース
+  -> MetaGrid で不足する場合にのみ外部検索
 ```
 
-Do not read all entities or all indexes as a precaution.
+念のためにすべてのエンティティやすべてのインデックスを読む、ということはしないでください。
 
-## Structured questions
+## 構造化された質問
 
-Translate clear questions into entity type and property conditions.
+明確な質問は、エンティティタイプとプロパティの条件に変換します。
 
-Example:
+例:
 
 ```text
-Which columns contain personal information?
+個人情報を含むカラムはどれか？
 ```
 
-becomes:
+これは次のようになります。
 
 ```text
 entity type = column
 personal_data = true
 ```
 
-Read the `column` type index and the `personal_data` property index.
-Intersect the resulting entity IDs.
+`column` タイプのインデックスと `personal_data` プロパティのインデックスを読み、得られたエンティティ ID の積集合を取ります。
 
-Example:
+例:
 
 ```text
-Which personal-data columns come from CustomerHub?
+CustomerHub 由来の個人データカラムはどれか？
 ```
 
-becomes:
+これは次のようになります。
 
 ```text
 entity type = column
@@ -53,46 +51,39 @@ personal_data = true
 source_system = system:customer-hub
 ```
 
-Read only those three relevant indexes.
+関連するこの 3 つのインデックスだけを読みます。
 
-## Current facts
+## 現在のファクト
 
-For a question about the current state, prefer facts whose validity
-contains the current date and whose status is `verified`.
+現在の状態に関する質問には、有効期間が現在日付を含み、ステータスが `verified` であるファクトを優先します。
 
-Do not silently discard conflicting facts. Surface them when they are
-material to the answer.
+矛盾するファクトを黙って切り捨ててはいけません。回答に影響する場合は、矛盾があることを明示します。
 
-## Historical questions
+## 過去に関する質問
 
-For a question about a specific date, select facts where the date is
-inside the fact validity period.
+特定の日付に関する質問には、その日付がファクトの有効期間に含まれるファクトを選びます。
 
-Do not use a current fact to answer a historical question unless the
-fact is explicitly valid for that period.
+そのファクトが該当期間に有効であると明示されていない限り、現在のファクトを使って過去の質問に答えてはいけません。
 
-## Narrative questions
+## 物語的な質問
 
-Questions such as these may require `README.md`:
+次のような質問には `README.md` が必要になることがあります。
 
-- Why was this design chosen?
-- What does this data mean to the business?
-- What changed during the migration?
+- なぜこの設計が選ばれたのか？
+- このデータは業務上どのような意味を持つのか？
+- 移行の際に何が変わったのか？
 
-Use indexes to identify the relevant entity first. Do not begin with a
-full scan of all Markdown files.
+まずインデックスを使って関連するエンティティを特定します。すべての Markdown ファイルの全件走査から始めてはいけません。
 
-## Missing information
+## 情報が不足している場合
 
-If MetaGrid does not contain the required information, search the most
-appropriate original source.
+MetaGrid に必要な情報がない場合は、最も適切な元の情報源を検索します。
 
-Typical source priority:
+典型的な情報源の優先順位:
 
-- physical BigQuery structure: BigQuery
-- business requirements and rationale: Confluence
-- access rights: IAM
-- implementation behavior: code and configuration
+- BigQuery の物理構造: BigQuery
+- 業務要件と根拠: Confluence
+- アクセス権限: IAM
+- 実装上の挙動: コードと設定
 
-When a reusable fact is discovered, follow `update.md` and add it to
-MetaGrid.
+再利用可能なファクトを発見した場合は、`update.md` に従って MetaGrid に追加します。

@@ -1,91 +1,82 @@
-# Updating MetaGrid
+# MetaGrid の更新
 
-Update MetaGrid only when the discovered information has reuse value.
-Do not record every conversational detail.
+発見した情報に再利用価値がある場合にのみ、MetaGrid を更新します。会話の細部をすべて記録してはいけません。
 
-## Update workflow
+## 更新のワークフロー
 
-1. Identify the Entity described by the evidence.
-2. Reuse an existing Entity if it represents the same thing.
-3. Split the evidence into independent Fact candidates.
-4. Register or reuse the Source record.
-5. Compare each Fact candidate with existing facts of the same
-   property.
-6. Determine whether differences represent history or conflict.
-7. Update canonical files only.
-8. Run `npm run metagrid:check`.
+1. 証拠が説明しているエンティティを特定する。
+2. 同じものを表す既存のエンティティがあれば再利用する。
+3. 証拠を独立したファクト候補に分割する。
+4. ソースレコードを登録するか、既存のものを再利用する。
+5. 各ファクト候補を、同じプロパティの既存ファクトと比較する。
+6. 差異が履歴なのか矛盾なのかを判断する。
+7. 正規ファイルだけを更新する。
+8. `npm run metagrid:check` を実行する。
 
-## Entity matching
+## エンティティの照合
 
-Prefer stable technical identifiers over display names.
+表示名よりも、安定した技術的な識別子を優先します。
 
-Use aliases for abbreviations, former names, Japanese names, and other
-common references.
+略称、旧名称、日本語名、その他よく使われる呼び方にはエイリアスを使います。
 
-If two records might represent the same Entity but the evidence is
-insufficient, do not merge them automatically.
+2 つのレコードが同じエンティティを表している可能性があっても、証拠が不十分な場合は自動的にマージしてはいけません。
 
-## Fact extraction
+## ファクトの抽出
 
-One sentence can generate multiple facts.
+1 つの文から複数のファクトが生まれることがあります。
 
-Example:
+例:
 
 ```text
-customer.email comes from CustomerHub and is personal data.
+customer.email は CustomerHub 由来で、個人データである。
 ```
 
-produces:
+これは次のファクトを生みます。
 
 ```text
 source_system = system:customer-hub
 personal_data = true
 ```
 
-## Existing fact comparison
+## 既存ファクトとの比較
 
-If the same entity, property, and value already exist, do not create a
-duplicate fact merely because another source was found.
-Add the additional source reference when appropriate.
+同じエンティティ、プロパティ、値がすでに存在する場合、別のソースが見つかったというだけで重複するファクトを作成してはいけません。必要に応じて、追加のソース参照を加えます。
 
-If the value differs, first investigate whether the values apply to
-different time periods.
+値が異なる場合は、まずそれぞれの値が別の期間に当てはまるものではないかを調べます。
 
-If the timeline is known, preserve both facts with suitable validity
-ranges.
+時系列が分かっている場合は、適切な有効期間を付けて両方のファクトを残します。
 
-If the difference cannot be explained, retain separate facts and use
-`conflicting` or `candidate` as appropriate.
+差異を説明できない場合は、別々のファクトとして残し、状況に応じて `conflicting` または `candidate` を使います。
 
-## Verification
+## 検証
 
-Never mark a fact `verified` solely because an AI inferred it.
+AI が推論しただけの理由で、ファクトを `verified` にしてはいけません。
 
-Consider:
+次の点を考慮します。
 
-- source authority
-- whether the source describes planned or implemented behavior
-- document age and validity period
-- consistency with the live system
-- corroborating evidence
+- ソースの権威性
+- ソースが計画中の挙動と実装済みの挙動のどちらを説明しているか
+- ドキュメントの古さと有効期間
+- 稼働中のシステムとの整合性
+- 裏付けとなる証拠
 
-## Generated files
+## 生成ファイル
 
-Never hand-edit:
+次のファイルを手で編集してはいけません。
 
 ```text
 metagrid/catalog.json
 metagrid/indexes/**
 ```
 
-The build script recreates them.
+ビルドスクリプトがこれらを再生成します。
 
-## Validation
+## バリデーション
 
-After any canonical change, run:
+正規ファイルを変更したあとは、必ず次を実行します。
 
 ```text
 npm run metagrid:check
 ```
 
-Resolve validation errors before treating the update as complete.
+更新を完了とみなす前に、バリデーションエラーを解消してください。

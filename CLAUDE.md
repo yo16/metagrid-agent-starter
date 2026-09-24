@@ -1,7 +1,6 @@
 @AGENTS.md
 
-# Claude Code notes
+# Claude Code 向けメモ
 
-Follow `AGENTS.md` as the common project instruction set.
-Read detailed MetaGrid documents only when the current task requires
-searching or updating MetaGrid.
+共通のプロジェクト指示として `AGENTS.md` に従ってください。
+MetaGrid の詳細ドキュメントは、現在のタスクで MetaGrid の検索や更新が必要な場合にのみ読んでください。

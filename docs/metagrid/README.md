@@ -1,24 +1,22 @@
-# MetaGrid overview
+# MetaGrid 概要
 
-MetaGrid is a thin knowledge layer that connects facts about the same
-real-world or technical entity across multiple information sources.
+MetaGrid は、複数の情報源にまたがって存在する、同じ現実世界の対象や技術的な対象に関するファクトを結び付ける、薄い知識レイヤーです。
 
-It is intentionally not a replacement for BigQuery, Confluence, IAM,
-source code, or design documents.
+BigQuery、Confluence、IAM、ソースコード、設計ドキュメントを置き換えることは、意図的に目指していません。
 
-## Design goals
+## 設計目標
 
-- Answer recurring questions without repeatedly searching all sources.
-- Preserve evidence for every reusable fact.
-- Preserve history instead of overwriting old facts.
-- Allow contradictory information to coexist until resolved.
-- Load only the information needed for the current question.
-- Keep canonical files human-readable and AI-editable.
-- Generate search indexes mechanically from canonical data.
+- 繰り返し発生する質問に、毎回すべての情報源を検索することなく答える。
+- 再利用可能なすべてのファクトについて、証拠を保持する。
+- 古いファクトを上書きせず、履歴を保持する。
+- 矛盾する情報を、解決されるまで共存させる。
+- 現在の質問に必要な情報だけを読み込む。
+- 正規ファイルを、人が読めて AI が編集できる形式に保つ。
+- 検索インデックスを正規データから機械的に生成する。
 
-## Canonical data
+## 正規データ
 
-Each entity has three files:
+各エンティティは 3 つのファイルを持ちます。
 
 ```text
 entity.json
@@ -26,19 +24,17 @@ facts.json
 README.md
 ```
 
-`entity.json` identifies the entity.
+`entity.json` はエンティティを識別します。
 
-`facts.json` contains structured assertions.
+`facts.json` は構造化された主張（ファクト）を含みます。
 
-`README.md` contains narrative context that is difficult to express as
-individual facts.
+`README.md` は、個々のファクトとして表現しにくい、物語的な文脈を含みます。
 
-Source records under `metagrid/sources/` describe the evidence used by
-facts.
+`metagrid/sources/` 配下のソースレコードは、ファクトが利用する証拠を記述します。
 
-## Generated data
+## 生成データ
 
-The build script generates:
+ビルドスクリプトは次のファイルを生成します。
 
 ```text
 metagrid/catalog.json
@@ -47,5 +43,4 @@ metagrid/indexes/by-property/*.json
 metagrid/indexes/aliases.json
 ```
 
-These files are disposable and can always be rebuilt from canonical
-files.
+これらのファイルは使い捨てであり、正規ファイルからいつでも再生成できます。

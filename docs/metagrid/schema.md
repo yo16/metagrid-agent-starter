@@ -1,14 +1,12 @@
-# MetaGrid data model
+# MetaGrid データモデル
 
-## Entity
+## エンティティ（Entity）
 
-An Entity is something the organization wants to reason about.
-Examples include a system, dataset, table, column, report, business
-term, business process, organization, or role.
+エンティティとは、組織が把握し、判断の対象にしたいものです。システム、データセット、テーブル、カラム、レポート、ビジネス用語、業務プロセス、組織、ロールなどが該当します。
 
-Each entity directory contains `entity.json`.
+各エンティティのディレクトリには `entity.json` を置きます。
 
-Example:
+例:
 
 ```json
 {
@@ -20,13 +18,13 @@ Example:
 }
 ```
 
-Entity IDs should be stable and globally unique inside the MetaGrid.
+エンティティ ID は安定しており、MetaGrid 内で一意でなければなりません。
 
-## Fact
+## ファクト（Fact）
 
-A Fact is one independent assertion about one entity.
+ファクトとは、1 つのエンティティに関する、1 つの独立した主張です。
 
-Example:
+例:
 
 ```json
 {
@@ -40,9 +38,9 @@ Example:
 }
 ```
 
-A `facts.json` file contains the entity ID and an array of facts.
+`facts.json` ファイルには、エンティティ ID とファクトの配列を記述します。
 
-Example:
+例:
 
 ```json
 {
@@ -51,55 +49,50 @@ Example:
 }
 ```
 
-Do not place multiple independent claims in one Fact.
+複数の独立した主張を 1 つのファクトに入れてはいけません。
 
-## Fact statuses
+## ファクトのステータス
 
-Allowed statuses are:
+使用できるステータスは次のとおりです。
 
 - `verified`
 - `candidate`
 - `conflicting`
 - `deprecated`
 
-`verified` requires adequate evidence.
+`verified` には十分な証拠が必要です。
 
-`candidate` is used for plausible but unconfirmed information.
+`candidate` は、もっともらしいが未確認の情報に使います。
 
-`conflicting` is used when incompatible evidence exists.
+`conflicting` は、矛盾する証拠が存在する場合に使います。
 
-`deprecated` is used when a fact was previously valid but is no
-longer current.
+`deprecated` は、以前は有効だったが現在は有効ではないファクトに使います。
 
-## Validity
+## 有効期間
 
-`valid_from` and `valid_to` describe when the Fact is true.
-They do not describe when a source page was created or edited.
+`valid_from` と `valid_to` は、そのファクトがいつ真であるかを表します。ソースページの作成日や編集日を表すものではありません。
 
-Dates use `YYYY-MM-DD` when known.
+日付が分かっている場合は `YYYY-MM-DD` 形式で記述します。
 
-Use `null` when no end date is known and the fact is still current.
-Omit a date only when it cannot be established.
+終了日が不明で、ファクトが現在も有効な場合は `null` を使います。日付を省略するのは、どうしても特定できない場合だけにしてください。
 
-## Property
+## プロパティ（Property）
 
-Properties are defined in:
+プロパティは次のファイルで定義します。
 
 ```text
 metagrid/config/properties.json
 ```
 
-Reuse an existing property whenever possible.
-Do not introduce synonyms such as `pii`, `personal_info`, and
-`personal_data` for the same concept.
+可能な限り既存のプロパティを再利用してください。同じ概念に対して `pii`、`personal_info`、`personal_data` のような同義語を導入してはいけません。
 
-A property can optionally constrain its expected value type.
+プロパティには、期待する値の型を任意で指定できます。
 
-## Source
+## ソース（Source）
 
-A Source records where evidence came from.
+ソースは、証拠の出どころを記録します。
 
-Example:
+例:
 
 ```json
 {
@@ -113,19 +106,16 @@ Example:
 }
 ```
 
-A Source does not itself make a Fact verified.
-The content, authority, date, and consistency of the evidence still
-need to be evaluated.
+ソースがあるというだけで、ファクトが `verified` になるわけではありません。証拠の内容、権威性、日付、整合性は別途評価する必要があります。
 
 ## README.md
 
-Use `README.md` for narrative information such as:
+`README.md` は、次のような物語的な情報に使います。
 
-- business context
-- design rationale
-- change history
-- important caveats
-- explanations that do not fit one property/value pair
+- 業務上の背景
+- 設計上の根拠
+- 変更履歴
+- 重要な注意点
+- 1 つのプロパティと値の組では表現できない説明
 
-Structured facts remain the preferred source for filtering and exact
-queries.
+絞り込みや厳密な検索には、引き続き構造化されたファクトを優先して使います。

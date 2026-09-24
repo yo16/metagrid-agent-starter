@@ -1,110 +1,96 @@
-# MetaGrid Agent Guide
+# MetaGrid エージェントガイド
 
-## Purpose
+## 目的
 
-MetaGrid is a thin knowledge layer over existing sources such as
-BigQuery, Confluence, code, design documents, and IAM information.
-It does not replace those systems.
+MetaGrid は、BigQuery、Confluence、コード、設計ドキュメント、IAM 情報といった既存の情報源の上に置かれる、薄い知識レイヤーです。これらのシステムを置き換えるものではありません。
 
-Use MetaGrid to answer questions quickly, preserve reusable facts,
-and keep links to the original evidence.
+MetaGrid は、質問に素早く答え、再利用可能なファクトを保存し、元の証拠へのリンクを保持するために使います。
 
-## Core workflow
+## 基本ワークフロー
 
-When answering a question:
+質問に答えるときは、次の手順で進めます。
 
-1. Read `metagrid/catalog.json`.
-2. Use only the indexes relevant to the question.
-3. Load only the matching entities and facts.
-4. Read an entity `README.md` only when context is needed.
-5. Read original sources only when evidence is needed.
-6. Search Confluence or another source only if MetaGrid is missing
-   the required information.
-7. If new reusable facts are discovered, update the MetaGrid source
-   files.
-8. Run validation and rebuild indexes after updates.
+1. `metagrid/catalog.json` を読む。
+2. 質問に関係するインデックスだけを使う。
+3. 該当するエンティティとファクトだけを読み込む。
+4. 文脈が必要な場合にのみ、エンティティの `README.md` を読む。
+5. 証拠が必要な場合にのみ、元のソースを読む。
+6. MetaGrid に必要な情報がない場合にのみ、Confluence などの情報源を検索する。
+7. 再利用可能な新しいファクトを発見した場合は、MetaGrid のソースファイルを更新する。
+8. 更新後は検証を実行し、インデックスを再構築する。
 
-Never start by reading the whole MetaGrid or searching all of
-Confluence.
+最初から MetaGrid 全体を読んだり、Confluence 全体を検索したりしてはいけません。
 
-## Source of truth
+## 正規データ（Source of truth）
 
-The canonical MetaGrid files are:
+MetaGrid の正規ファイルは次のとおりです。
 
-- `entity.json`: stable entity identity and aliases.
-- `facts.json`: structured facts about that entity.
-- `README.md`: human-readable context and history.
-- `metagrid/sources/**`: metadata about original evidence.
-- `metagrid/config/**`: allowed entity types and properties.
+- `entity.json`: エンティティの安定した識別情報とエイリアス。
+- `facts.json`: そのエンティティに関する構造化されたファクト。
+- `README.md`: 人が読むための文脈と履歴。
+- `metagrid/sources/**`: 元の証拠に関するメタデータ。
+- `metagrid/config/**`: 許可されたエンティティタイプとプロパティ。
 
-Everything under `metagrid/indexes/` and `metagrid/catalog.json` is
-derived data. Do not edit generated files by hand.
+`metagrid/indexes/` 配下と `metagrid/catalog.json` はすべて派生データです。生成されたファイルを手で編集してはいけません。
 
-## Facts
+## ファクト
 
-Treat each independent assertion as one Fact.
+独立した主張は、それぞれ 1 つのファクトとして扱います。
 
-Do not combine statements such as:
+次のような記述を 1 つのファクトにまとめてはいけません。
 
 - `source_system = CustomerHub`
 - `personal_data = true`
 
-into one Fact.
+ファクトには、分かる範囲で証拠、ステータス、有効期間を残します。新しいファクトがあるからといって、過去のファクトを上書きしてはいけません。
 
-Facts should preserve evidence, status, and time validity when known.
-Do not overwrite historical facts merely because a newer fact exists.
+## 不確実性
 
-## Uncertainty
+推論を検証済みのファクトに変換してはいけません。
 
-Never convert an inference into a verified fact.
+次のステータスを使います。
 
-Use these statuses:
+- `verified`: 根拠があり、確認済み。
+- `candidate`: もっともらしいが、十分に確認されていない。
+- `conflicting`: 矛盾する証拠が存在する。
+- `deprecated`: 以前は有効だったが、現在は有効ではない。
 
-- `verified`: supported and confirmed.
-- `candidate`: plausible but not sufficiently confirmed.
-- `conflicting`: incompatible evidence exists.
-- `deprecated`: previously valid but no longer current.
+情報源同士が矛盾する場合は、矛盾するファクトをそのまま残し、矛盾の内容を説明します。推測で解決してはいけません。
 
-If sources conflict, keep the conflicting facts and explain the
-conflict. Do not resolve it by guesswork.
+## 時間
 
-## Time
+ソースのタイムスタンプとファクトの有効期間は別の概念です。
 
-Source timestamps and fact validity are different concepts.
+2026 年に更新された Confluence ページが、2024 年に有効になったファクトを説明していることもあります。`valid_from` と `valid_to` は、ソースの作成日や更新日とは別に保持します。
 
-A Confluence page updated in 2026 may describe a fact that became
-valid in 2024. Preserve `valid_from` and `valid_to` separately from
-source creation or update dates.
+## MetaGrid の更新
 
-## Updating MetaGrid
-
-Before adding or changing MetaGrid data, read:
+MetaGrid のデータを追加・変更する前に、次を読んでください。
 
 - `docs/metagrid/schema.md`
 - `docs/metagrid/update.md`
 
-After changing canonical files, run:
+正規ファイルを変更したあとは、次を実行します。
 
 ```text
 npm run metagrid:check
 ```
 
-Do not manually update indexes.
+インデックスを手動で更新してはいけません。
 
-## Searching MetaGrid
+## MetaGrid の検索
 
-Before performing a MetaGrid search, read:
+MetaGrid を検索する前に、次を読んでください。
 
 - `docs/metagrid/search.md`
 
-Use structured indexes before full-text or semantic search whenever
-possible.
+可能な限り、全文検索やセマンティック検索よりも先に構造化インデックスを使います。
 
-## Detailed documentation
+## 詳細ドキュメント
 
-- Overview: `docs/metagrid/README.md`
-- Data model: `docs/metagrid/schema.md`
-- Search procedure: `docs/metagrid/search.md`
-- Update procedure: `docs/metagrid/update.md`
+- 概要: `docs/metagrid/README.md`
+- データモデル: `docs/metagrid/schema.md`
+- 検索手順: `docs/metagrid/search.md`
+- 更新手順: `docs/metagrid/update.md`
 
-Keep this file short. Put detailed rules in the documents above.
+このファイルは短く保ってください。詳細なルールは上記のドキュメントに書きます。
