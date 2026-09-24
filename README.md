@@ -1,20 +1,18 @@
 # MetaGrid Agent Starter
 
-A file-based MetaGrid designed for AI agents.
+AI エージェント向けに設計された、ファイルベースの MetaGrid です。
 
-The canonical knowledge is stored as Markdown and JSON. Search indexes
-are generated from the canonical files and should never be edited by
-hand.
+正（canonical）となる知識は Markdown と JSON として保存します。検索インデックスは正規ファイルから生成されるものであり、手で編集してはいけません。
 
-## Setup
+## セットアップ
 
-Node.js 18 or later is enough. No npm dependencies are required.
+Node.js 18 以降があれば十分です。npm の依存パッケージは不要です。
 
 ```text
 npm run metagrid:check
 ```
 
-## Main commands
+## 主なコマンド
 
 ```text
 npm run metagrid:validate
@@ -22,17 +20,15 @@ npm run metagrid:build
 npm run metagrid:check
 ```
 
-`metagrid:validate` validates configuration, entities, facts, and
-sources.
+`metagrid:validate` は設定、エンティティ、ファクト、ソースを検証します。
 
-`metagrid:build` recreates `metagrid/indexes/` and
-`metagrid/catalog.json`.
+`metagrid:build` は `metagrid/indexes/` と `metagrid/catalog.json` を再生成します。
 
-`metagrid:check` validates first, then rebuilds the indexes.
+`metagrid:check` は検証を行ったあと、インデックスを再構築します。
 
-## Add an entity
+## エンティティの追加
 
-Create a directory below the matching entity type:
+対応するエンティティタイプの配下にディレクトリを作成します。
 
 ```text
 metagrid/entities/columns/customer.email/
@@ -41,10 +37,10 @@ metagrid/entities/columns/customer.email/
   README.md
 ```
 
-Then run:
+その後、次を実行します。
 
 ```text
 npm run metagrid:check
 ```
 
-See `docs/metagrid/` for the detailed rules.
+詳細なルールは `docs/metagrid/` を参照してください。
